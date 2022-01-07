@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP TDA1572
+D AM Receiver
+F /home/monitor/NAS/Datenblaetter/TDA1572.pdf
+$ENDCMP
+#
+#End Doc Library
