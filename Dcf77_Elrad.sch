@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L 40xx:4060N IC4
+L Dcf77_Elrad-rescue:4060N-40xx IC4
 U 1 1 61AB98E7
 P 9300 2300
 F 0 "IC4" H 9300 1435 50  0000 C CNN
@@ -617,7 +617,7 @@ F 3 "http://www.ti.com/lit/ds/symlink/lm393.pdf" H 5550 6900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L 40xx:4060N IC4
+L Dcf77_Elrad-rescue:4060N-40xx IC4
 U 2 1 61ABAF8D
 P 6200 6950
 F 0 "IC4" H 6347 6996 50  0000 L CNN
@@ -1264,7 +1264,7 @@ Connection ~ 1600 5050
 Wire Wire Line
 	1600 5050 1950 5050
 $Comp
-L TDA:TDA1572 IC3
+L Dcf77_Elrad-rescue:TDA1572-TDA IC3
 U 1 1 61AE53D5
 P 6500 2450
 F 0 "IC3" H 6450 2550 50  0000 L CNN

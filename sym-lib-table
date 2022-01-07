@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name Dcf77_Elrad-rescue)(type Legacy)(uri ${KIPRJMOD}/Dcf77_Elrad-rescue.lib)(options "")(descr ""))
+)
