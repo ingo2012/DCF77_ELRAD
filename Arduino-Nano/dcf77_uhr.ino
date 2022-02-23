@@ -1,13 +1,19 @@
 // IGE 1.0 08.12.2021
 // IGE 1.1 04.01.2022 , Anpassung Inv. NonInv Signal per PIN
+// IGE 1.2 18.02.2022 , RTC DS3231 hinzu.
 
 // DCF77 Uhr mit Elrad DCF-RX , Elrad 04/88
 //
 // https://playground.arduino.cc/Code/DCF77/
 // https://www.rc-modellbau-portal.de/index.php?threads/arduino-mit-dcf77-modul-und-rtc-echtzeituhr-ds3231.8278/
 // TimeLib https://github.com/PaulStoffregen/Time
-
-
+// RTC https://github.com/adafruit/RTClib/blob/master/examples/ds3231/ds3231.ino
+// EEPRAOM AT24C32 ca. 1000000 
+//
+// High Reliability
+// –  Endurance: 1 Million Write Cycles 
+// –  Data Retention: 100 Year
+// bei Update von 15 Minuten entspricht das ca. 28 Jahre !
 
 #include <Wire.h>               // Wire Bibliothek laden
 #include <LiquidCrystal_I2C.h>  // 
@@ -20,7 +26,8 @@
 #define DCF_INV_PIN 9       // DCF-Signal invertiert , nicht invertiert dann PIN auf low setzen , Elrad muss auf true !
 #define DCF_INTERRUPT 0     // Interrupt number associated with pin, DCF-Lib
 #define PIN_LED 13          // Status von der Verbindung an LED-PIN 13
-#define VERSION "1.1"       // DEV Stand
+#define VERSION "1.2"       // DEV Stand
+// #define PWM_PIN 10          // LCD Beleuchtung, nicht verwendet, stattdessen Poit 100 Ohm
 
 // S-Meter
 #define SIN_PIN A0
@@ -56,14 +63,24 @@ int u_smin = 1023;
 int u_cnt = 0;
 const int u_pcnt = 25; // Aenderung zwischen min und max muss u_pcnt betragen
 
+// 18.02.2022 , RTC hinzu
+#include "RTClib.h"
+RTC_DS3231 rtc; // Es wird eine Objekt rtc aus der Klasse RTC_3231 der RTClib.h erstellt
+long RTCUpdateTimer = 0;
+long RTCUpdateIntervall = 900000; // alle 15 Minuten die RTC aktualisieren wenn eine gueltige Zeit empfangen wurde
+
 void setup() {
   Serial.begin(9600);           // Seriellen Monitor starten
   pinMode(DCF_PIN,INPUT);
   pinMode(PIN_LED, OUTPUT);
   pinMode(DCF_INV_PIN, INPUT_PULLUP); 
+  //pinMode(PWM_PIN, OUTPUT);
+  //analogWrite(PWM_PIN,125);
+  
   lcd.begin();                  
   lcd.noBacklight();            
   lcd.backlight();              //Hintergrundbeleuchtung einschalten (lcd.noBacklight(); schaltet die Beleuchtung aus).
+  
   
   if ((digitalRead(DCF_INV_PIN) == HIGH))  {
     dcf_sig_inverted = false;
@@ -90,11 +107,17 @@ void setup() {
   //setSyncProvider(getDCFTime);
   // AD Wandler
   analogReference(INTERNAL); // 1.1V
+  if (! rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    Serial.flush();
+  }
+  
+  printRTCTime();
 }
 
 void loop() {
  
-  delay(950);
+  delay(1000);
   // Die Feldstaerke wird ueber 60 Sek. gemittellt.
   u_sact = analogRead(SIN_PIN);
   if (u_cnt > 61) {
@@ -172,15 +195,26 @@ void loop() {
   
   if (UTCTime != 0) {
     u_cnt = 0;
-    Serial.println("Aktuelle Zeit wurde empfangen!");
+    Serial.println("Actual time received");
     setTime(UTCTime);
     SyncTime = UTCTime;
+    // hier noch updatimer z.B. alle 15 Min
+    if (((millis() - RTCUpdateTimer) > RTCUpdateIntervall)) {
+       RTCUpdateTimer = millis();
+       rtc.adjust(DateTime(year(), month(), day(), hour(), minute(), second()));
+       Serial.println("set RTC to actual time ....");
+       printRTCTime();
+    }   
     
     printDateTime(CE, UTCTime, "Berlin");
     g_bDCFTimeFound = true;
     //Serial.print(cetDcf(CE, UTCTime));
     //Serial.println();
     
+ } else {
+   // Datum und Uhrzeit aus der RTC holen...
+   DateTime dt = rtc.now();
+   setTime(dt.unixtime());
  }
 
    if (g_bDCFTimeFound) {
@@ -327,3 +361,45 @@ char* cetDcfDate(Timezone tz, time_t utc) {
     //Serial.println(buf);
     return(buf);
  }
+
+
+ void RTCUpdate()
+{
+  time_t t = now(); 
+  // (Jahr, Monat, Tag, Stunde, Minute, Sekunde)
+  // rtc.adjust(DateTime(2019, 1, 21, 3, 0, 0));
+  Serial.println("Stelle RCT neu! ");
+  Serial.print(hour());
+  printDigits(minute());
+  printDigits(second());
+  Serial.print(" ");
+  Serial.print(day());
+  Serial.print(" ");
+  Serial.print(month());
+  Serial.print(" ");
+  Serial.print(year());
+  Serial.println();
+  // Datum und Uhrzeit der in RTC übertragen
+  rtc.adjust(DateTime(year(), month(), day(), hour(), minute(), second()));
+}
+
+
+void printRTCTime() {
+    Serial.println("printRTCTime ");
+    DateTime now = rtc.now();
+    Serial.println("RTC-Time and Date");
+    Serial.print(now.day(), DEC);
+    Serial.print('.');
+    Serial.print(now.month());
+    Serial.print('.');
+    Serial.print(now.year(), DEC);
+    
+    Serial.print(" ");
+    Serial.print(now.hour(), DEC);
+    Serial.print(':');
+    Serial.print(now.minute(), DEC);
+    Serial.print(':');
+    Serial.print(now.second(), DEC);
+    Serial.println();
+}    
+    

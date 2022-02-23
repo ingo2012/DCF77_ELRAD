@@ -309,7 +309,6 @@ Wire Wire Line
 	7700 4900 7800 4900
 Wire Wire Line
 	7700 5000 7800 5000
-NoConn ~ 6900 3300
 NoConn ~ 7300 3700
 NoConn ~ 7300 3800
 NoConn ~ 7300 4400
@@ -395,7 +394,6 @@ Wire Wire Line
 	7000 2400 7000 2200
 NoConn ~ 6300 4400
 NoConn ~ 6300 4500
-NoConn ~ 6300 4700
 NoConn ~ 6300 4800
 NoConn ~ 6300 5000
 Wire Wire Line
@@ -478,12 +476,12 @@ Wire Wire Line
 Wire Wire Line
 	8600 3750 8600 4150
 Text Notes 8200 7650 0    50   ~ 0
-03.02.22
+03.01.22
 $Comp
 L Connector:Conn_01x02_Male J5
 U 1 1 61D83DE5
 P 8400 5550
-F 0 "J5" V 8300 5250 50  0000 C CNN
+F 0 "J5" V 8350 5300 50  0000 C CNN
 F 1 "S-Meter (1mA)" V 8250 5550 50  0000 C CNN
 F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 8400 5550 50  0001 C CNN
 F 3 "~" H 8400 5550 50  0001 C CNN
@@ -506,4 +504,222 @@ Wire Wire Line
 	8300 4300 8300 5350
 Wire Wire Line
 	8400 4500 8400 5350
+$Comp
+L Transistor_BJT:BC547 Q?
+U 1 1 61E02CD4
+P 5250 5700
+F 0 "Q?" H 5441 5746 50  0000 L CNN
+F 1 "BC547" H 5441 5655 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 5450 5625 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/BC550-D.pdf" H 5250 5700 50  0001 L CNN
+	1    5250 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 61E03F5E
+P 4700 5700
+F 0 "R?" V 4900 5650 50  0000 L CNN
+F 1 "1K" V 5000 5650 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal" H 4700 5700 50  0001 C CNN
+F 3 "~" H 4700 5700 50  0001 C CNN
+	1    4700 5700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5050 5700 4800 5700
+Wire Wire Line
+	6300 4700 4500 4700
+Wire Wire Line
+	4500 4700 4500 5700
+Wire Wire Line
+	4500 5700 4600 5700
+$Comp
+L power:+5V #PWR?
+U 1 1 61E06C47
+P 5350 5400
+F 0 "#PWR?" H 5350 5250 50  0001 C CNN
+F 1 "+5V" H 5365 5573 50  0000 C CNN
+F 2 "" H 5350 5400 50  0001 C CNN
+F 3 "" H 5350 5400 50  0001 C CNN
+	1    5350 5400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 5500 5350 5400
+$Comp
+L Connector:Conn_01x02_Male J?
+U 1 1 61E08A79
+P 5550 6250
+F 0 "J?" H 5350 6300 50  0000 C CNN
+F 1 "LED-Beleuchtung" H 5150 6200 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 5550 6250 50  0001 C CNN
+F 3 "~" H 5550 6250 50  0001 C CNN
+	1    5550 6250
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 61E0A569
+P 5350 6650
+F 0 "#PWR?" H 5350 6400 50  0001 C CNN
+F 1 "GND" H 5355 6477 50  0000 C CNN
+F 2 "" H 5350 6650 50  0001 C CNN
+F 3 "" H 5350 6650 50  0001 C CNN
+	1    5350 6650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 5900 5350 6250
+Wire Wire Line
+	5350 6350 5350 6650
+$Comp
+L Device:R_POT RV?
+U 1 1 61E0D961
+P 3600 6100
+F 0 "RV?" H 3531 6146 50  0000 R CNN
+F 1 "R_POT" H 3531 6055 50  0000 R CNN
+F 2 "" H 3600 6100 50  0001 C CNN
+F 3 "~" H 3600 6100 50  0001 C CNN
+	1    3600 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 61E0E5CA
+P 3600 5450
+F 0 "#PWR?" H 3600 5300 50  0001 C CNN
+F 1 "+5V" H 3615 5623 50  0000 C CNN
+F 2 "" H 3600 5450 50  0001 C CNN
+F 3 "" H 3600 5450 50  0001 C CNN
+	1    3600 5450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 61E0F192
+P 3600 6650
+F 0 "#PWR?" H 3600 6400 50  0001 C CNN
+F 1 "GND" H 3605 6477 50  0000 C CNN
+F 2 "" H 3600 6650 50  0001 C CNN
+F 3 "" H 3600 6650 50  0001 C CNN
+	1    3600 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Male J?
+U 1 1 61E0FE62
+P 4050 6450
+F 0 "J?" H 3850 6500 50  0000 C CNN
+F 1 "LED-Beleuchtung" H 3650 6400 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 4050 6450 50  0001 C CNN
+F 3 "~" H 4050 6450 50  0001 C CNN
+	1    4050 6450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3600 5450 3600 5950
+Wire Wire Line
+	3600 6250 3600 6350
+Wire Wire Line
+	3600 6350 3800 6350
+Wire Wire Line
+	3800 6350 3800 6100
+Wire Wire Line
+	3800 6100 3750 6100
+Wire Wire Line
+	3850 6450 3600 6450
+Wire Wire Line
+	3600 6450 3600 6350
+Connection ~ 3600 6350
+Wire Wire Line
+	3850 6550 3600 6550
+Wire Wire Line
+	3600 6550 3600 6650
+Text Notes 4950 7000 0    50   ~ 0
+PWM nicht verwendet !
+$Comp
+L Timer_RTC:DS3231MZ U?
+U 1 1 6210DA0D
+P 2950 3800
+F 0 "U?" H 2500 4700 50  0000 C CNN
+F 1 "Modul DS3231" H 2700 4600 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 2950 3300 50  0001 C CNN
+F 3 "http://datasheets.maximintegrated.com/en/ds/DS3231M.pdf" H 2950 3200 50  0001 C CNN
+	1    2950 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6210F7FC
+P 2950 4300
+F 0 "#PWR?" H 2950 4050 50  0001 C CNN
+F 1 "GND" H 2955 4127 50  0000 C CNN
+F 2 "" H 2950 4300 50  0001 C CNN
+F 3 "" H 2950 4300 50  0001 C CNN
+	1    2950 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 62114086
+P 6900 3250
+F 0 "#PWR?" H 6900 3100 50  0001 C CNN
+F 1 "+3.3V" H 6750 3350 50  0000 C CNN
+F 2 "" H 6900 3250 50  0001 C CNN
+F 3 "" H 6900 3250 50  0001 C CNN
+	1    6900 3250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 3250 6900 3300
+$Comp
+L power:+3.3V #PWR?
+U 1 1 62116880
+P 2950 3300
+F 0 "#PWR?" H 2950 3150 50  0001 C CNN
+F 1 "+3.3V" H 2965 3473 50  0000 C CNN
+F 2 "" H 2950 3300 50  0001 C CNN
+F 3 "" H 2950 3300 50  0001 C CNN
+	1    2950 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 62117B06
+P 2100 3600
+F 0 "R?" V 1850 3350 50  0000 C CNN
+F 1 "150" V 1950 3400 50  0000 C CNN
+F 2 "" H 2100 3600 50  0001 C CNN
+F 3 "~" H 2100 3600 50  0001 C CNN
+	1    2100 3600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 62118671
+P 2100 3700
+F 0 "R?" V 2150 3500 50  0000 C CNN
+F 1 "150" V 2250 3500 50  0000 C CNN
+F 2 "" H 2100 3700 50  0001 C CNN
+F 3 "~" H 2100 3700 50  0001 C CNN
+	1    2100 3700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2200 3600 2450 3600
+Wire Wire Line
+	2200 3700 2450 3700
+Text GLabel 1650 3600 0    50   Input ~ 0
+SCL
+Text GLabel 1650 3700 0    50   Input ~ 0
+SDA
+Wire Wire Line
+	1650 3600 2000 3600
+Wire Wire Line
+	1650 3700 2000 3700
+Text Notes 7100 6650 0    50   ~ 0
+18.02.22 , RTC-Modul hinzu
+Wire Wire Line
+	2950 3300 2950 3400
 $EndSCHEMATC
